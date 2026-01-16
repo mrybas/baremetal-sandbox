@@ -1,0 +1,25 @@
+apiVersion: tinkerbell.org/v1alpha1
+kind: Template
+metadata:
+  name: talos-install
+  namespace: tinkerbell
+spec:
+  data: |
+    version: "0.1"
+    name: talos-install
+    global_timeout: 1800
+    tasks:
+      - name: "os-installation"
+        worker: "{{.device_1}}"
+        volumes:
+          - /dev:/dev
+          - /dev/console:/dev/console
+          - /lib/firmware:/lib/firmware:ro
+        actions:
+          - name: "stream-talos-image"
+            image: quay.io/tinkerbell-actions/image2disk:v1.0.0
+            timeout: 600
+            environment:
+              DEST_DISK: "{{.disk_device}}"
+              IMG_URL: "http://{{.tinkerbell_ip}}:8080/talos-{{.talos_version}}-amd64.raw"
+              COMPRESSED: "false"

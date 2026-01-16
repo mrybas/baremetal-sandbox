@@ -1,0 +1,58 @@
+# =============================================================================
+# baremetal-sandbox .gitignore
+# =============================================================================
+
+# Configuration (contains local settings)
+config.env
+
+# Talos configs (contain secrets)
+talos/
+!talos/.gitkeep
+
+# Kubeconfig
+kubeconfig
+*.kubeconfig
+
+# Age private key (NEVER commit!)
+age.key
+*.age.key
+
+# Generated Hardware resources (generated from config.env)
+infrastructure/hardware/*.yaml
+!infrastructure/hardware/.gitkeep
+
+# Generated reset-job configmap (contains IPs/MACs from config.env)
+infrastructure/reset-job/configmap.yaml
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Helm
+charts/
+*.tgz
+
+# Terraform (if used)
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Node.js (if UI is added)
+node_modules/
